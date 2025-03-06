@@ -66,10 +66,6 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gray-50 p-4">
-      <header className="mb-6">
-        <h1 className="text-2xl font-bold text-center">レイヤー構造を持ったPDF生成ツール</h1>
-      </header>
-
       <main className="container mx-auto">
         <div className="flex flex-col md:flex-row gap-4">
           {/* 左側のパネル */}
@@ -114,10 +110,6 @@ export default function Home() {
           </div>
         </div>
       </main>
-
-      <footer className="mt-8 text-center text-gray-500 text-sm">
-        <p>© 2025 レイヤー構造を持ったPDF生成ツール</p>
-      </footer>
     </div>
   );
 }
