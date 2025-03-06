@@ -76,8 +76,7 @@ const ToolBar: React.FC<ToolBarProps> = ({
     '#00FFFF', // シアン
   ];
 
-  // 利用可能な線の太さ
-  const strokeWidths = [1, 2, 4, 6, 8, 10];
+  // 線の太さはスライダーで1〜10の範囲で設定可能
 
   return (
     <div className="bg-gray-100 p-4 rounded-lg">

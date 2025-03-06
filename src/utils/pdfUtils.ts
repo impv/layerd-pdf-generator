@@ -1,8 +1,5 @@
-import { Layer, VectorPath, Point } from '@/types';
+import { Layer, VectorPath } from '@/types';
 import type { jsPDF as JsPDFType } from 'jspdf';
-
-// jsPDFをクライアントサイドでのみインポートする
-let jsPDF: any = null;
 
 /**
  * パスをPDFに描画する

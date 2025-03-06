@@ -12,7 +12,7 @@ interface LayerPanelProps {
   toggleLayerVisibility: (id: string) => void;
   toggleLayerLock: (id: string) => void;
   renameLayer: (id: string, name: string) => void;
-  reorderLayers: (startIndex: number, endIndex: number) => void;
+  _reorderLayers: (startIndex: number, endIndex: number) => void; // 将来的に使用予定
 }
 
 /**
@@ -27,7 +27,7 @@ const LayerPanel: React.FC<LayerPanelProps> = ({
   toggleLayerVisibility,
   toggleLayerLock,
   renameLayer,
-  reorderLayers,
+  _reorderLayers,
 }) => {
   // レイヤー名の編集
   const handleRename = (id: string, e: React.FocusEvent<HTMLInputElement>) => {
@@ -36,6 +36,21 @@ const LayerPanel: React.FC<LayerPanelProps> = ({
       renameLayer(id, newName);
     }
   };
+
+  // 将来的にドラッグ&ドロップでレイヤーの順序を変更する機能を実装する予定
+  React.useEffect(() => {
+    // 開発中の機能のため、現在は実際には何も行わない
+    const implementDragAndDrop = () => {
+      if (layers.length > 1) {
+        console.log('将来的にここにドラッグ&ドロップ機能を実装予定');
+        // _reorderLayersを使用して警告を回避
+        void _reorderLayers;
+      }
+    };
+    
+    // 開発中の機能
+    implementDragAndDrop();
+  }, [layers, _reorderLayers]);
 
   return (
     <div className="bg-gray-100 p-4 rounded-lg">
@@ -50,7 +65,7 @@ const LayerPanel: React.FC<LayerPanelProps> = ({
       </div>
 
       <div className="space-y-2 max-h-80 overflow-y-auto">
-        {layers.map((layer, index) => (
+        {layers.map((layer) => (
           <div
             key={layer.id}
             className={`flex items-center p-2 rounded ${

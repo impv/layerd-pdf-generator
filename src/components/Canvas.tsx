@@ -2,6 +2,7 @@
 
 import React, { useRef, useEffect } from 'react';
 import { Stage, Layer, Line } from 'react-konva';
+import Konva from 'konva';
 import { Layer as LayerType, VectorPath } from '@/types';
 
 interface CanvasProps {
@@ -32,7 +33,7 @@ const Canvas: React.FC<CanvasProps> = ({
   width = 800,
   height = 600,
 }) => {
-  const stageRef = useRef<any>(null);
+  const stageRef = useRef<Konva.Stage | null>(null);
 
   // キャンバスのサイズを設定
   useEffect(() => {

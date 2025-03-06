@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, Suspense } from 'react';
+import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import LayerPanel from '@/components/LayerPanel';
 import ToolBar from '@/components/ToolBar';
@@ -16,8 +16,8 @@ const Canvas = dynamic(() => import('@/components/Canvas'), {
 
 export default function Home() {
   // キャンバスのサイズ
-  const [canvasWidth, setCanvasWidth] = useState(800);
-  const [canvasHeight, setCanvasHeight] = useState(600);
+  const [canvasWidth] = useState(800);
+  const [canvasHeight] = useState(600);
 
   // レイヤー管理フックを使用
   const {
@@ -50,7 +50,6 @@ export default function Home() {
     handleMouseUp,
     handleMouseLeave,
     selectPath,
-    clearSelection,
   } = useCanvas(addPathToLayer, updatePath, removePathFromLayer, activeLayerId);
 
   // PDFを生成してダウンロードする
@@ -89,7 +88,7 @@ export default function Home() {
               toggleLayerVisibility={toggleLayerVisibility}
               toggleLayerLock={toggleLayerLock}
               renameLayer={renameLayer}
-              reorderLayers={reorderLayers}
+              _reorderLayers={reorderLayers}
             />
           </div>
 
