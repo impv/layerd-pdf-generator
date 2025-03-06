@@ -33,6 +33,11 @@ export interface Layer {
 export type ToolType = 'pen' | 'eraser' | 'select' | 'move';
 
 /**
+ * ファイル形式の種類を表す型
+ */
+export type FileFormat = 'svg' | 'pdf';
+
+/**
  * アプリケーションの状態を表す型
  */
 export interface AppState {
@@ -42,4 +47,5 @@ export interface AppState {
   currentTool: ToolType;
   currentColor: string;
   currentStrokeWidth: number;
+  fileFormat: FileFormat;
 }

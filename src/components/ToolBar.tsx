@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { ToolType } from '@/types';
+import { ToolType, FileFormat } from '@/types';
 
 interface ToolBarProps {
   currentTool: ToolType;
@@ -10,7 +10,9 @@ interface ToolBarProps {
   setCurrentColor: (color: string) => void;
   currentStrokeWidth: number;
   setCurrentStrokeWidth: (width: number) => void;
-  onGeneratePdf: () => void;
+  currentFileFormat: FileFormat;
+  setCurrentFileFormat: (format: FileFormat) => void;
+  onExport: () => void;
 }
 
 /**
@@ -23,7 +25,9 @@ const ToolBar: React.FC<ToolBarProps> = ({
   setCurrentColor,
   currentStrokeWidth,
   setCurrentStrokeWidth,
-  onGeneratePdf,
+  currentFileFormat,
+  setCurrentFileFormat,
+  onExport,
 }) => {
   // 利用可能なツール
   const tools: { id: ToolType; name: string; icon: React.ReactNode }[] = [
@@ -133,12 +137,31 @@ const ToolBar: React.FC<ToolBarProps> = ({
         </div>
       </div>
 
+      <div className="mb-4">
+        <h3 className="text-sm font-semibold mb-2">ファイル形式</h3>
+        <div className="flex space-x-2">
+          {(['svg', 'pdf'] as FileFormat[]).map((format) => (
+            <button
+              key={format}
+              className={`px-3 py-1 rounded ${
+                currentFileFormat === format
+                  ? 'bg-blue-500 text-white'
+                  : 'bg-white text-gray-700 hover:bg-gray-200'
+              }`}
+              onClick={() => setCurrentFileFormat(format)}
+            >
+              {format.toUpperCase()}
+            </button>
+          ))}
+        </div>
+      </div>
+
       <div>
         <button
           className="w-full bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600"
-          onClick={onGeneratePdf}
+          onClick={onExport}
         >
-          PDFを生成
+          {currentFileFormat.toUpperCase()}でエクスポート
         </button>
       </div>
     </div>

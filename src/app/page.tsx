@@ -6,7 +6,8 @@ import LayerPanel from '@/components/LayerPanel';
 import ToolBar from '@/components/ToolBar';
 import { useLayers } from '@/hooks/useLayers';
 import { useCanvas } from '@/hooks/useCanvas';
-import { generateAndDownloadPdf } from '@/utils/pdfUtils';
+import { FileFormat } from '@/types';
+import { exportToFormat } from '@/utils/exportUtils';
 
 // Canvasコンポーネントをクライアントサイドでのみロードする
 const Canvas = dynamic(() => import('@/components/Canvas'), {
@@ -18,6 +19,9 @@ export default function Home() {
   // キャンバスのサイズ
   const [canvasWidth] = useState(800);
   const [canvasHeight] = useState(600);
+  
+  // 現在選択されているファイル形式
+  const [currentFileFormat, setCurrentFileFormat] = useState<FileFormat>('pdf');
 
   // レイヤー管理フックを使用
   const {
@@ -52,14 +56,20 @@ export default function Home() {
     selectPath,
   } = useCanvas(addPathToLayer, updatePath, removePathFromLayer, activeLayerId);
 
-  // PDFを生成してダウンロードする
-  const handleGeneratePdf = () => {
-    console.log('Generating PDF with', layers.length, 'layers');
+  // 選択された形式でエクスポートする
+  const handleExport = () => {
+    console.log(`Exporting to ${currentFileFormat} format with ${layers.length} layers`);
     try {
-      generateAndDownloadPdf(layers, 'layered-drawing.pdf', canvasWidth, canvasHeight);
-      console.log('PDF generated successfully');
+      exportToFormat(
+        currentFileFormat,
+        layers,
+        'layered-drawing',
+        canvasWidth,
+        canvasHeight
+      );
+      console.log(`${currentFileFormat.toUpperCase()} exported successfully`);
     } catch (error) {
-      console.error('Error generating PDF:', error);
+      console.error(`Error exporting to ${currentFileFormat}:`, error);
     }
   };
 
@@ -76,7 +86,9 @@ export default function Home() {
               setCurrentColor={setCurrentColor}
               currentStrokeWidth={currentStrokeWidth}
               setCurrentStrokeWidth={setCurrentStrokeWidth}
-              onGeneratePdf={handleGeneratePdf}
+              currentFileFormat={currentFileFormat}
+              setCurrentFileFormat={setCurrentFileFormat}
+              onExport={handleExport}
             />
 
             <LayerPanel
